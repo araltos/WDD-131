@@ -10,12 +10,7 @@ body {
 }
 
 main {
-    background-color: #e91414;
     height: 100vh; /* view height = vh*/
-}
-
-.green {
-    color: green
 }
 
 footer p {
