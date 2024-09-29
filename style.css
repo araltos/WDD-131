@@ -1,18 +1,1 @@
 /* selector {
-    property: value;
-
-} */
-
-body {
-    /* background-color: #e91414; */
-    font-size: 18px;
-    margin: 0%;
-}
-
-main {
-    height: 100vh; /* view height = vh*/
-}
-
-footer p {
-    font-size: 0.8em;
-}
