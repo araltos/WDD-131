@@ -1,5 +1,7 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap");
 
+/* Color and Font Variables */
 :root {
     --primary-color: #AF1B3F;
     --secondary-color: #EFC69B; 
@@ -10,6 +12,7 @@
     --secondary-font: 'Lora', serif;
 }
 
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -24,6 +27,7 @@ body {
     padding: 20px;
 }
 
+/* Skip to Content Link */
 .skiptocontent a {
     position: absolute;
     top: -40px;
@@ -39,6 +43,7 @@ body {
     top: 0;
 }
 
+/* Header Styles */
 header {
     text-align: center;
     margin-bottom: 20px;
@@ -52,6 +57,7 @@ header h1 {
     margin-bottom: 10px;
 }
 
+/* Navigation Styles */
 nav {
     border-top: 2px solid var(--secondary-color);
     border-bottom: 2px solid var(--secondary-color);
@@ -69,11 +75,6 @@ nav ul {
     margin-top: 0;
 }
 
-a:focus, button:focus, input:focus {
-    outline: 3px solid var(--accent-color);
-    outline-offset: 2px;
-}
-
 nav ul li {
     margin: 0;
 }
@@ -86,25 +87,36 @@ nav ul li a {
     padding: 10px 15px;
 }
 
+/* Focus Styles */
+a:focus, button:focus, input:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Main Content Styles */
 main {
     display: grid;
     grid-template-columns: 70% 30%;
     gap: 20px;
     margin-top: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+/* Article Styles */
 .book-reviews {
     padding-right: 20px;
 }
 
 .review {
     display: grid;
-    grid-template-columns: 1fr 4fr; /* Date on the left, content on the right */
-    gap: 20px; /* Space between the date and content */
-    margin-bottom: 40px; /* Adds space between reviews */
-    padding-bottom: 20px; /* Space inside the review */
-    border-bottom: 2px solid var(--secondary-color); /* Bottom border for separation */
-    align-items: start; /* Ensure vertical alignment of content */
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    align-items: stretch;
 }
 
 .review-date {
@@ -112,40 +124,40 @@ main {
     font-size: 0.9rem;
     color: var(--primary-color);
     display: flex;
-    flex-direction: column; /* Stack date and metadata vertically */
-    justify-content: flex-start; /* Align content to the top */
+    flex-direction: column;
+    justify-content: flex-start;
     gap: 5px;
+    border-right: 2px solid var(--secondary-color);
+    padding-right: 5px;
 }
 
 .review-content {
     display: flex;
-    align-items: flex-start; /* Ensures the image and text align to the top */
-    gap: 20px; /* Adds space between the image and the text */
-    font-size: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
 }
 
 .review-content h2 {
     font-family: var(--secondary-font);
     color: var(--primary-color);
     font-size: 1.6rem;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
     line-height: 1.4; 
 }
 
 .review-content p {
     color: var(--text-dark);
     margin-top: 10px;
-    word-wrap: break-word; /* Prevent text overflow */
+    word-wrap: break-word;
     line-height: 1.6;
 }
 
 .review-content img {
     width: 150px;
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 15px; /* Space between image and text */
-    vertical-align: top; /* Align image to the top */
-    float: left;
-    margin-right: 20px;
+    height: auto;
+    margin: 10px auto;
+    display: block;
 }
 
 .review-content a {
@@ -154,12 +166,13 @@ main {
     font-weight: bold;
 }
 
+/* Filters Styles */
 .filters {
     padding-left: 20px;
     border-left: 2px solid var(--secondary-color);
-    text-align: right;
 }
 
+/* Footer Styles */
 footer {
     text-align: center;
     margin-top: 40px;
