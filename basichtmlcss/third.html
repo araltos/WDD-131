@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>CSS Fundamentals</title>
+</head>
+<body>
+    <header>
+        <a id="logo_link" href="index.html">
+            <img class="logo" src="images/logo.png" alt="IndexWeb">
+        </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="second.html">HTML Basics</a>
+                <a href="third.html">CSS Fundamentals</a>
+                <a href="#">Contact Us</a>
+            </nav>
+    </header>
+            <h1 class="home-title">CSS Fundamentals</h1>
+            <h2 class="subtile">What is CSS?</h2>
+        <div id="thirdPosition">
+            <img id="left_top_one" src="images/page3one.jpg" alt="image for page3">
+            <img id="right_low_one" src="images/page3two.jpg" alt="image for page3">
+
+            <p class="first_top">
+                CSS, or Cascading Style Sheets, is a language used to style the appearance of your website.<br>
+                It determines how your HTML elements are presented on the screen.<br>
+                Think of it as the fashion designer for your web content – it defines colors, fonts, spacing, and layout.<br>
+            </p>
+
+            <p class="frist_second">
+                The Basics of CSS<br>
+                Selector and Declaration<br>
+                CSS rules consist of selectors and declarations.<br>
+                The selector targets HTML elements, and the declaration block contains the styles. Here's a simple example:<br>
+                /* Selector: Targets all paragraphs */<br>
+                p {<br>
+                    /* Declaration block: Styles for paragraphs */<br>
+                    color: #333; = Text color<br>
+                    font-size: 16px; = Text size<br>
+                    margin-bottom: 20px; = Spacing at the bottom<br>
+                }
+            </p>
+
+            <p class="second_first">
+                Colors
+                Colors in CSS can be defined using names, HEX codes, RGB, or HSL values.<br>
+                For example:<br>
+                * Using a color name */ <br>
+                    h1 {<br>
+                    color: red;<br>
+                    }<br>
+
+                /* Using a HEX code */<br>
+                    p {<br>
+                    color: #008080; = Teal color<br>
+                    }
+            </p>
+
+            <p class="second_sec">
+                Fonts<br>
+                You can set the font family for your text using the <code>font-family</code> property:<br>
+                body {<br>
+                    font-family: 'Arial', sans-serif;<br>
+                }
+            </p>
+
+            <p class="third_one">
+                Box Model<br>
+                CSS treats every HTML element as a box.<br>
+                The box model includes properties like <code>margin</code>, <code>padding</code>, <code>border</code>, and <code>width/height</code>.<br>
+                For example:<br>
+                /* Adding padding to a div */<br>
+                    div {<br>
+                        padding: 10px;<br>
+                    }
+            </p>
+
+            <p class="third_second">
+                Responsive Design<br>
+                Responsive design ensures your website looks good on various devices.<br>
+                Use media queries to adjust styles based on screen size:<br>
+                /* Adjusting styles for smaller screens */<br>
+                    @media only screen and (max-width: 600px) {<br>
+                    body {<br>
+                        font-size: 14px; /* Decrease font size */<br>
+                    }<br>
+                /* More styles for small screens... */<br>
+                    }
+            </p>
+
+            <p class="last_paragraph">
+                Putting it All Together<br>
+                Now, let's combine these concepts to style a simple webpage:<br>
+                <code><br>
+                    &lt;!DOCTYPE html&gt;<br>
+                    &lt;html lang="en"&gt;<br>
+                    &lt;head&gt;<br>
+                        &lt;meta charset="UTF-8"&gt;<br>
+                        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                        &lt;title&gt;My Simple Website&lt;/title&gt;<br>
+                    &lt;/head&gt;<br>
+                    &lt;body&gt;<br>
+                        &lt;h1&gt;Welcome to My Simple Website!&lt;/h1&gt;<br>
+                        &lt;p&gt;This is a basic introduction to CSS for creating responsive websites.<br>
+                        Feel free to explore and customize these styles as you learn more!&lt;/p&gt;<br>
+                    &lt;/body&gt;<br>
+                    &lt;/html&gt;<br>
+                </code>
+                This HTML file incorporates the discussed CSS concepts to create a simple, responsive webpage.<br>
+                Happy styling! 🎨
+            </p>
+        </div>
+    <footer>
+        <p>IndexWeb &copy; 2023 - Santiago Jara</p>
+        <a id="bottom" href="contact.html">Contact Us</a>
+        <div class="social-icons">
+            <a href="https://instagram.com" target="_blank" class="icon"><ion-icon name="logo-instagram" size="large"></ion-icon></a>
+            <a href="https://www.linkedin.com/in/leonardo-jara-04102925a/?trk=public-profile-join-page" target="_blank"  class="icon"><ion-icon name="logo-linkedin" size="large"></ion-icon></a>
+            <a href="https://github.com/araltos" target="_blank"><ion-icon name="logo-github"  class="icon" size="large"></ion-icon></a>
+        </div>
+    </footer>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
