@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Book</title>
+    <meta name="author" content="Santiago Jara">
+    <meta name="description" content="recipe review website">
+
+    <meta property="og:title" content="Sweet Potato Waffles Recipe">
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Discover how to make savory sweet potato waffles with a hint of ginger. Perfect for breakfast or brunch!">
+    <meta property="og:image" content="https://example.com/images/sweet-potato-waffle-md.jpg">
+    <meta property="og:url" content="https://example.com/recipe/sweet-potato-waffles">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="recipes.css">
+    <script src="recipes.js" type="module" defer></script>
+    <script src="main.js" type="module" defer></script>
+</head>
+<body>
+    <header>
+        <div class="title">
+            <img src="images/recipe-book.png" alt="logo">
+            <a href="index.html" class="home"><h1>Recipe Book</h1></a>
+        </div>
+
+        <form class="search-form" action="/search" method="GET">
+            <input type="text" name="q" placeholder="Find a recipe" aria-label="Search">
+            <button type="submit" aria-label="Submit search">
+                <img src="images/search.svg" alt="Search">
+            </button>
+        </form>
+        
+    </header>
+
+    <main>
+        <div class="main-container">
+            <section class="recipe" id="recipe-container">
+                
+            </section>
+        </div>
+    </main>
+    
+    
+
+    <footer>
+        <p>&copy; 2024</p>
+        <a href="https://www.flaticon.com/free-icons/recipe" title="recipe icons">Recipe icons created by Freepik - Flaticon</a>
+        <div class="social">
+            <a href="#"><img src="images/instagram_icon.svg" alt="instagram icon"></a>
+	        <a href="#"><img src="images/youtube_icon.svg" alt="youtube icon"></a>
+	        <a href="#"><img src="images/pinterest_icon.svg" alt="pinterest icon"></a>
+        </div>
+    </footer>
+</body>
+</html>
