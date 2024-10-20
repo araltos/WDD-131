@@ -82,5 +82,4 @@ function init() {
     const searchForm = document.querySelector('.search-form');
     searchForm.addEventListener('submit', searchHandler);
 }
-
 window.onload = init;
