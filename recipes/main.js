@@ -15,22 +15,18 @@ function recipeTemplate(recipe) {
             <img src="${recipe.image}" alt="image of ${recipe.name}" />
             <figcaption>
                 <ul class="recipe__tags">
-                    ${tagsTemplate(recipe.tags)}
+                    ${tagsTemplate(recipe.tags)}  <!-- Extracting tags -->
                 </ul>
-                <h2><a href="#">${recipe.name}</a></h2>
-                <p class="recipe__ratings">
-                    ${ratingTemplate(recipe.rating)}
-                </p>
-                <p class="recipe__description">
-                    ${recipe.description}
-                </p>
+                <h2><a href="#">${recipe.name}</a></h2>  <!-- Extracting recipe name -->
+                <p class="recipe__ratings">${ratingTemplate(recipe.rating)}</p>  <!-- Extracting rating -->
+                <p class="recipe__description">${recipe.description}</p>  <!-- Extracting description -->
                 <h3>Ingredients:</h3>
                 <ul>
-                    ${recipe.recipeIngredient.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                    ${recipe.recipeIngredient.map(ingredient => `<li>${ingredient}</li>`).join('')}  <!-- Extracting ingredients -->
                 </ul>
                 <h3>Instructions:</h3>
                 <ol>
-                    ${recipe.recipeInstructions.map(instruction => `<li>${instruction}</li>`).join('')}
+                    ${recipe.recipeInstructions.map(instruction => `<li>${instruction}</li>`).join('')}  <!-- Extracting instructions -->
                 </ol>
             </figcaption>
         </figure>
@@ -38,7 +34,7 @@ function recipeTemplate(recipe) {
 }
 
 function tagsTemplate(tags) {
-    return tags.map(tag => `<li>${tag}</li>`).join('');
+    return tags.map(tag => `<li class="tag">${tag}</li>`).join('');
 }
 
 function ratingTemplate(rating) {
@@ -54,15 +50,35 @@ function ratingTemplate(rating) {
     return html;
 }
 
+
 function renderRecipes(recipeList) {
     const recipeContainer = document.getElementById('recipe-container');
-    const recipesHTML = recipeList.map(recipe => recipeTemplate(recipe)).join('');
-    recipeContainer.innerHTML = recipesHTML;
+    recipeContainer.innerHTML = recipeList.map(recipeTemplate).join('');
+}
+
+function filterRecipes(query) {
+    const filteredRecipes = recipes.filter(recipe => {
+        return (
+            recipe.name.toLowerCase().includes(query) ||
+            recipe.description.toLowerCase().includes(query) ||
+            recipe.recipeIngredient.some(ingredient => ingredient.toLowerCase().includes(query)) ||
+            recipe.tags.some(tag => tag.toLowerCase().includes(query))
+        );
+    });
+    filteredRecipes.sort((a, b) => a.name.localeCompare(b.name));
+    renderRecipes(filteredRecipes);
+}
+
+function searchHandler(event) {
+    event.preventDefault();
+    const query = document.querySelector('.search-form input[name="q"]').value.toLowerCase();
+    filterRecipes(query);
 }
 
 function init() {
     const recipe = getRandomRecipe();
     renderRecipes([recipe]);
+    const searchForm = document.querySelector('.search-form');
+    searchForm.addEventListener('submit', searchHandler);
 }
-
 window.onload = init;
