@@ -1,28 +1,36 @@
-
-
 let tasks = [];
 
+window.onload = function() {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+    if (storedTasks) {
+        tasks = storedTasks;
+        displayTasks();
+        generateQRCode();
+    }
+};
 
 const taskInput = document.getElementById('task-input');
 const addTaskButton = document.getElementById('add-task-button');
 const taskContainer = document.getElementById('task-container');
-
+const qrCodeElement = document.getElementById('qr-code');
 
 function addTask() {
-    const taskText = taskInput.value;
+    const taskText = taskInput.value.trim();
     if (taskText === "") return;
-    
+
     const task = {
         id: tasks.length,
         description: taskText,
         completed: false
     };
-    
+
     tasks.push(task);
     displayTasks();
     taskInput.value = "";
+    generateQRCode();
 }
 
+window.addTask = addTask; 
 
 function displayTasks() {
     taskContainer.innerHTML = "";
@@ -35,19 +43,47 @@ function displayTasks() {
         `;
         taskContainer.appendChild(taskItem);
     });
+
+    if (tasks.length === 0) {
+        taskContainer.innerHTML = "<li>No tasks added yet!</li>";
+    }
+    
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-
-function toggleTask(id) {
+window.toggleTask = function(id) {
     tasks = tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task);
     displayTasks();
-}
+    generateQRCode();
+};
 
-
-function deleteTask(id) {
+window.deleteTask = function(id) {
     tasks = tasks.filter(task => task.id !== id);
     displayTasks();
+    generateQRCode();
+};
+
+function generateQRCode() {
+    const taskDescriptions = tasks.map(task => {
+        return `${task.completed ? "[X]" : "[ ]"} ${task.description}`;
+    }).join('\n');
+
+    qrCodeElement.innerHTML = '';
+
+    $(qrCodeElement).qrcode({
+        width: 128,
+        height: 128,
+        text: taskDescriptions || "No tasks available"
+    });
 }
 
+taskInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        addTask();
+    }
+});
 
 addTaskButton.addEventListener('click', addTask);
+
+
+// for qr code add URLSearchParams 
