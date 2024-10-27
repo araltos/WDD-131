@@ -30,7 +30,7 @@ function addTask() {
     generateQRCode();
 }
 
-window.addTask = addTask; 
+window.addTask = addTask;
 
 function displayTasks() {
     taskContainer.innerHTML = "";
@@ -64,26 +64,28 @@ window.deleteTask = function(id) {
 };
 
 function generateQRCode() {
-    const taskDescriptions = tasks.map(task => {
-        return `${task.completed ? "[X]" : "[ ]"} ${task.description}`;
-    }).join('\n');
+    const baseURL = "https://example.com/todo";
 
+    const params = new URLSearchParams();
+    tasks.forEach(task => {
+        const taskKey = `task_${task.id}`;
+        const taskValue = `${task.completed ? "[X]" : "[ ]"} ${task.description}`;
+        params.append(taskKey, taskValue);
+    });
+
+    const fullURL = `${baseURL}?${params.toString()}`;
     qrCodeElement.innerHTML = '';
 
     $(qrCodeElement).qrcode({
         width: 128,
         height: 128,
-        text: taskDescriptions || "No tasks available"
+        text: fullURL
     });
 }
 
+addTaskButton.addEventListener('click', addTask);
 taskInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         addTask();
     }
 });
-
-addTaskButton.addEventListener('click', addTask);
-
-
-// for qr code add URLSearchParams 
