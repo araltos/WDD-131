@@ -1,12 +1,15 @@
 let tasks = [];
 
 window.onload = function() {
+    // Load tasks from URL if present, otherwise from local storage
+    loadTasksFromURL();
+
     const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-    if (storedTasks) {
+    if (!tasks.length && storedTasks) {
         tasks = storedTasks;
-        displayTasks();
-        generateQRCode();
     }
+    displayTasks();
+    generateQRCode(); // Generate QR code based on current tasks
 };
 
 const taskInput = document.getElementById('task-input');
@@ -27,7 +30,7 @@ function addTask() {
     tasks.push(task);
     displayTasks();
     taskInput.value = "";
-    generateQRCode();
+    generateQRCode(); // Update QR code with new tasks
 }
 
 window.addTask = addTask;
@@ -54,21 +57,26 @@ function displayTasks() {
 window.toggleTask = function(id) {
     tasks = tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task);
     displayTasks();
-    generateQRCode();
+    generateQRCode(); // Update QR code when tasks are toggled
 };
 
 window.deleteTask = function(id) {
     tasks = tasks.filter(task => task.id !== id);
     displayTasks();
-    generateQRCode();
+    generateQRCode(); // Update QR code when tasks are deleted
 };
 
+// Generate the QR code with URL including encoded tasks
 function generateQRCode() {
-    const baseURL = window.location.href;
+    const baseURL = window.location.origin + window.location.pathname;
     const params = new URLSearchParams();
 
-    params.append('taskCount', tasks.length);
-    params.append('timestamp', Date.now());
+    // Encode tasks in URL parameters
+    tasks.forEach((task, index) => {
+        const taskKey = `task${index}`;
+        const taskValue = `${task.completed ? "1" : "0"}:${task.description}`;
+        params.append(taskKey, taskValue);
+    });
 
     const fullURL = `${baseURL}?${params.toString()}`;
     qrCodeElement.innerHTML = '';
@@ -77,6 +85,23 @@ function generateQRCode() {
         width: 128,
         height: 128,
         text: fullURL
+    });
+}
+
+// Load tasks from URL parameters if available
+function loadTasksFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    tasks = [];  // Clear any existing tasks
+
+    params.forEach((value, key) => {
+        if (key.startsWith("task")) {
+            const [completed, description] = value.split(":");
+            tasks.push({
+                id: tasks.length,
+                description: description,
+                completed: completed === "1"
+            });
+        }
     });
 }
 
