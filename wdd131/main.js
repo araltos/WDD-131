@@ -64,14 +64,11 @@ window.deleteTask = function(id) {
 };
 
 function generateQRCode() {
-    const baseURL = "https://example.com/todo";
-
+    const baseURL = window.location.href;
     const params = new URLSearchParams();
-    tasks.forEach(task => {
-        const taskKey = `task_${task.id}`;
-        const taskValue = `${task.completed ? "[X]" : "[ ]"} ${task.description}`;
-        params.append(taskKey, taskValue);
-    });
+
+    params.append('taskCount', tasks.length);
+    params.append('timestamp', Date.now());
 
     const fullURL = `${baseURL}?${params.toString()}`;
     qrCodeElement.innerHTML = '';
