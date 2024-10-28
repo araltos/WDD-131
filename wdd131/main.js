@@ -1,10 +1,8 @@
 let tasks = [];
 
 window.onload = function() {
-    loadTasksFromURL();
-
     const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-    if (!tasks.length && storedTasks) {
+    if (storedTasks) {
         tasks = storedTasks;
     }
     displayTasks();
@@ -66,38 +64,13 @@ window.deleteTask = function(id) {
 };
 
 function generateQRCode() {
-    const baseURL = window.location.origin + window.location.pathname;
-    const params = new URLSearchParams();
-
-    tasks.forEach((task, index) => {
-        const taskKey = `task${index}`;
-        const taskValue = `${task.completed ? "1" : "0"}:${task.description}`;
-        params.append(taskKey, taskValue);
-    });
-
-    const fullURL = `${baseURL}?${params.toString()}`;
+    const baseURL = "https://your-github-username.github.io/your-repo-name";
     qrCodeElement.innerHTML = '';
 
     $(qrCodeElement).qrcode({
         width: 128,
         height: 128,
-        text: fullURL
-    });
-}
-
-function loadTasksFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    tasks = [];
-
-    params.forEach((value, key) => {
-        if (key.startsWith("task")) {
-            const [completed, description] = value.split(":");
-            tasks.push({
-                id: tasks.length,
-                description: description,
-                completed: completed === "1"
-            });
-        }
+        text: baseURL
     });
 }
 
