@@ -1,12 +1,31 @@
 let tasks = [];
 
+function parseURLParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const taskCount = urlParams.get('taskCount');
+    
+    if (taskCount) {
+        for (let i = 0; i < taskCount; i++) {
+            const taskKey = `task_${i}`;
+            const taskValue = urlParams.get(taskKey);
+            if (taskValue) {
+                const completed = taskValue.startsWith("[X]");
+                const description = taskValue.replace(/^\[X\] |\[ \]/, "").trim();
+                tasks.push({ id: i, description, completed });
+            }
+        }
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+}
+
 window.onload = function() {
+    parseURLParams();
     const storedTasks = JSON.parse(localStorage.getItem('tasks'));
     if (storedTasks) {
         tasks = storedTasks;
+        displayTasks();
+        generateQRCode();
     }
-    displayTasks();
-    generateQRCode();
 };
 
 const taskInput = document.getElementById('task-input');
@@ -47,7 +66,7 @@ function displayTasks() {
     if (tasks.length === 0) {
         taskContainer.innerHTML = "<li>No tasks added yet!</li>";
     }
-    
+
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
@@ -64,13 +83,23 @@ window.deleteTask = function(id) {
 };
 
 function generateQRCode() {
-    const baseURL = "https://your-github-username.github.io/your-repo-name";
+    const baseURL = window.location.href.split('?')[0];
+    const params = new URLSearchParams();
+
+    params.append('taskCount', tasks.length);
+    tasks.forEach(task => {
+        const taskKey = `task_${task.id}`;
+        const taskValue = `${task.completed ? "[X]" : "[ ]"} ${task.description}`;
+        params.append(taskKey, taskValue);
+    });
+
+    const fullURL = `${baseURL}?${params.toString()}`;
     qrCodeElement.innerHTML = '';
 
     $(qrCodeElement).qrcode({
         width: 128,
         height: 128,
-        text: baseURL
+        text: fullURL
     });
 }
 
