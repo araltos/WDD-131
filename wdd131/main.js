@@ -1,7 +1,6 @@
 let tasks = [];
 
 window.onload = function() {
-    // Load tasks from URL if present, otherwise from local storage
     loadTasksFromURL();
 
     const storedTasks = JSON.parse(localStorage.getItem('tasks'));
@@ -9,7 +8,7 @@ window.onload = function() {
         tasks = storedTasks;
     }
     displayTasks();
-    generateQRCode(); // Generate QR code based on current tasks
+    generateQRCode();
 };
 
 const taskInput = document.getElementById('task-input');
@@ -30,7 +29,7 @@ function addTask() {
     tasks.push(task);
     displayTasks();
     taskInput.value = "";
-    generateQRCode(); // Update QR code with new tasks
+    generateQRCode();
 }
 
 window.addTask = addTask;
@@ -57,21 +56,19 @@ function displayTasks() {
 window.toggleTask = function(id) {
     tasks = tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task);
     displayTasks();
-    generateQRCode(); // Update QR code when tasks are toggled
+    generateQRCode();
 };
 
 window.deleteTask = function(id) {
     tasks = tasks.filter(task => task.id !== id);
     displayTasks();
-    generateQRCode(); // Update QR code when tasks are deleted
+    generateQRCode();
 };
 
-// Generate the QR code with URL including encoded tasks
 function generateQRCode() {
     const baseURL = window.location.origin + window.location.pathname;
     const params = new URLSearchParams();
 
-    // Encode tasks in URL parameters
     tasks.forEach((task, index) => {
         const taskKey = `task${index}`;
         const taskValue = `${task.completed ? "1" : "0"}:${task.description}`;
@@ -88,10 +85,9 @@ function generateQRCode() {
     });
 }
 
-// Load tasks from URL parameters if available
 function loadTasksFromURL() {
     const params = new URLSearchParams(window.location.search);
-    tasks = [];  // Clear any existing tasks
+    tasks = [];
 
     params.forEach((value, key) => {
         if (key.startsWith("task")) {
