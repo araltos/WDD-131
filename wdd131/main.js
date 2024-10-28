@@ -1,12 +1,14 @@
 let tasks = [];
 
 window.onload = function() {
+    loadTasksFromURL();
+
     const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-    if (storedTasks) {
+    if (!tasks.length && storedTasks) {
         tasks = storedTasks;
         displayTasks();
-        generateQRCode();
     }
+    generateQRCode();
 };
 
 const taskInput = document.getElementById('task-input');
@@ -64,19 +66,36 @@ window.deleteTask = function(id) {
 };
 
 function generateQRCode() {
-    const baseURL = window.location.href;
+    const baseURL = window.location.origin;
     const params = new URLSearchParams();
 
-    params.append('taskCount', tasks.length);
-    params.append('timestamp', Date.now());
+    tasks.forEach((task, index) => {
+        params.append(`task${index}`, `${task.completed ? "1" : "0"}:${task.description}`);
+    });
 
-    const fullURL = `${baseURL}?${params.toString()}`;
+    const fullURL = `${baseURL}/?${params.toString()}`;
     qrCodeElement.innerHTML = '';
 
     $(qrCodeElement).qrcode({
         width: 128,
         height: 128,
         text: fullURL
+    });
+}
+
+function loadTasksFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    tasks = [];
+
+    params.forEach((value, key) => {
+        if (key.startsWith("task")) {
+            const [completed, description] = value.split(":");
+            tasks.push({
+                id: tasks.length,
+                description: description,
+                completed: completed === "1"
+            });
+        }
     });
 }
 
