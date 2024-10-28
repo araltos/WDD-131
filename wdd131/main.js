@@ -83,10 +83,9 @@ window.deleteTask = function(id) {
 };
 
 function generateQRCode() {
-
-    const baseURL = 'https://<your-github-username>.github.io/<your-repo-name>';
+    const baseURL = window.location.href.split('?')[0];
     const params = new URLSearchParams();
-    
+
     params.append('taskCount', tasks.length);
     tasks.forEach(task => {
         const taskKey = `task_${task.id}`;
